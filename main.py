@@ -39,3 +39,13 @@ def display_positions(positions):
 		for c in cols:
 			msg_row[c[0]] = '#'
 		print(''.join([str(m) for m in msg_row]))
+
+
+positions, velocities = scrape_input('sample-input')
+positions = offset_positions_to_zero(positions)
+while(True):
+	display_positions(positions)
+	positions = move_one_step(positions, velocities)
+	res = input('Press Q to quit and any other key to display next step.')
+	if res in ['q', 'Q']:
+		break;
