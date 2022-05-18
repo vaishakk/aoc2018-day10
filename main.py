@@ -30,9 +30,7 @@ def move_one_step(positions, velocities):
 		positions[i] = position[0] + velocities[i][0], position[1] + velocities[i][1]
 	return positions
 
-def display_positions(positions):
-	max_x = max(positions, key=itemgetter(0))[0]
-	max_y = max(positions, key=itemgetter(1))[1]
+def display_positions(positions, max_x, max_y):
 	for y in range(0, max_y+1):
 		cols = filter(lambda p: p[1] == y, positions)
 		msg_row = ['.']*(max_x+1)
@@ -43,8 +41,10 @@ def display_positions(positions):
 
 positions, velocities = scrape_input('sample-input')
 positions = offset_positions_to_zero(positions)
+max_x = max(positions, key=itemgetter(0))[0]
+max_y = max(positions, key=itemgetter(1))[1]
 while(True):
-	display_positions(positions)
+	display_positions(positions, max_x, max_y)
 	positions = move_one_step(positions, velocities)
 	res = input('Press Q to quit and any other key to display next step.')
 	if res in ['q', 'Q']:
