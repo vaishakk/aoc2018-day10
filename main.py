@@ -31,19 +31,28 @@ def move_one_step(positions, velocities):
 	return positions
 
 def display_positions(positions, max_x, max_y):
-	for y in range(0, max_y+1):
-		cols = filter(lambda p: p[1] == y, positions)
-		msg_row = ['.']*(max_x+1)
+	step_y = int(max_y/100)
+	step_x = int(max_x/100)
+	sampled_positions = positions.copy()
+	for i, position in enumerate(positions):
+		sampled_positions[i] = int(position[0]/step_x), int(position[1]/step_y)
+	for y in range(0, 100):
+		cols = filter(lambda p: p[1] == y, sampled_positions)
+		msg_row = ['.']*100
+		#print(list(cols))
 		for c in cols:
-			msg_row[c[0]] = '#'
+			if c[0] == 100:
+				msg_row[99] = '#'
+			else:
+				msg_row[c[0]] = '#'
 		print(''.join([str(m) for m in msg_row]))
 
+positions, velocities = scrape_input('input')
 
-positions, velocities = scrape_input('sample-input')
-positions = offset_positions_to_zero(positions)
-max_x = max(positions, key=itemgetter(0))[0]
-max_y = max(positions, key=itemgetter(1))[1]
 while(True):
+	positions = offset_positions_to_zero(positions)
+	max_x = max(positions, key=itemgetter(0))[0]
+	max_y = max(positions, key=itemgetter(1))[1]
 	display_positions(positions, max_x, max_y)
 	positions = move_one_step(positions, velocities)
 	res = input('Press Q to quit and any other key to display next step.')
