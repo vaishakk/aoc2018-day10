@@ -1,3 +1,5 @@
+from operator import itemgetter
+
 def scrape_input(input_file='sample-input'):
 	positions = []
 	velocities = []
@@ -16,12 +18,24 @@ def scrape_input(input_file='sample-input'):
 	return positions, velocities
 
 def offset_positions_to_zero(positions):
-	# ToDo
+	min_x = min(positions, key=itemgetter(0))[0]
+	min_y = min(positions, key=itemgetter(1))[1]
+
+	for i, position in enumerate(positions):
+		positions[i] = position[0] + -min_x, position[1] + -min_y
 	return positions
 
 def move_one_step(positions, velocities):
-	# ToDo
-	return positions, velocities
+	for i, position in enumerate(positions):
+		positions[i] = position[0] + velocities[i][0], position[1] + velocities[i][1]
+	return positions
 
 def display_positions(positions):
-	pass
+	max_x = max(positions, key=itemgetter(0))[0]
+	max_y = max(positions, key=itemgetter(1))[1]
+	for y in range(0, max_y+1):
+		cols = filter(lambda p: p[1] == y, positions)
+		msg_row = ['.']*(max_x+1)
+		for c in cols:
+			msg_row[c[0]] = '#'
+		print(''.join([str(m) for m in msg_row]))
