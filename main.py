@@ -50,19 +50,11 @@ def write_image(positions, max_x, max_y, step):
 
 
 def display_positions(positions, max_x, max_y):
-	step_y = int(max_y/100)
-	step_x = int(max_x/100)
-	sampled_positions = positions.copy()
-	for i, position in enumerate(positions):
-		sampled_positions[i] = int(position[0]/step_x), int(position[1]/step_y)
 	for y in range(0, 100):
-		cols = filter(lambda p: p[1] == y, sampled_positions)
+		cols = filter(lambda p: p[1] == y, positions)
 		msg_row = ['.']*100
 		for c in cols:
-			if c[0] == 100:
-				msg_row[99] = '#'
-			else:
-				msg_row[c[0]] = '#'
+			msg_row[c[0]] = '#'
 		print(''.join([str(m) for m in msg_row]))
 
 positions, velocities = scrape_input('input')
