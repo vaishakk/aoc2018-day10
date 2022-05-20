@@ -1,5 +1,5 @@
 # Solution for AoC 2018 - Day 10
-
+[Link](https://adventofcode.com/2018/day/10)
 ## Prerequisties
 1. Python 3
 
@@ -17,3 +17,5 @@ pip3 install -r requirements.txt
 4. Run the script
 ```
 python main.py
+
+Positions at each second will be saved as images in the same folder.
