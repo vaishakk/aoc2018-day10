@@ -17,5 +17,6 @@ pip3 install -r requirements.txt
 4. Run the script
 ```
 python main.py
+```
 
 Positions at each second will be saved as images in the same folder.
